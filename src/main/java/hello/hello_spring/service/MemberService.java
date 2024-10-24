@@ -9,7 +9,11 @@ import java.util.Optional;
 
 public class MemberService {
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원 가입
@@ -25,7 +29,7 @@ public class MemberService {
         // NOTE : Optional의 경우 get을 사용하여 바로 꺼내는 방식을 권장하진 않음
         memberRepository.findByName(member.getName())
                 .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 회원압니다.");
+                    throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
     }
 
